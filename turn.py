@@ -20,7 +20,7 @@ class Turn():
         self.strikes.display_hangman()
         self.display_answer()
         if self.strikes.count == self.strikes.LIMIT - 1:
-            print("\nCategory: {}".format(self.answer.hint))
+            print("\nHint: {}".format(self.answer.hint))
         print("\nOther guessed letters: " + self.strikes.display_letters())
 
     def display_answer(self):

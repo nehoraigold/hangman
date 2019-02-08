@@ -19,7 +19,6 @@ class Answer():
             return (answer, hint)
         else:
             current_path = '\\'.join(path.abspath(__file__).split('\\')[:-1])
-            print(current_path)
             with open(current_path + '\\answers.csv') as csv_file:
                 read_csv = csv.reader(csv_file, delimiter=',')
                 row = random.choice(list(read_csv))
@@ -39,10 +38,10 @@ class Answer():
         return guess.lower() == self.lower() or guess.lower() == self.without_punctuation()
 
     def without_punctuation(self):
-        return str(''.join(ch for ch in self.lower() if ch.isalpha() or ch == " "))
+        return str(''.join(ch for ch in self.lower() if ch.isalpha() or ch == " ")
 
     def ends_with_punctuation(self):
-        return not self.value[len(self.value) - 1].isalpha()
+        return not self.value[len(self) - 1].isalpha()
 
     def lower(self):
         return self.value.lower()

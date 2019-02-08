@@ -20,8 +20,7 @@ class Game():
 
     def display_introduction(self):
         os.system('cls')
-        print(Game.HEADER + '||  HANGMAN  ||\n' + Game.HEADER +
-              '\nWelcome to Hangman! The objective of this game is to decode the secret word or phrase by guessing one letter at a time.')
+        print('{0}||  HANGMAN  ||\n{0}\nWelcome to Hangman! The objective of this game is to decode the secret word or phrase by guessing one letter at a time.'.format(Game.HEADER))
 
     def explain_rules(self):
         print("Here's how the game works: Each turn, you may guess a single letter to decode the secret word or phrase. If the letter you guess occurs in the phrase, we'll fill in all occurrences of that letter for you. If not, you'll get a strike. Strike out {} times, and it's game over. \n\nIf you think you've figured out what the secret phrase is before all the letters have been filled in, you may also enter in the complete answer as your guess. But if you're wrong, it'll count as a strike against you. Ready?\n".format(str(Strikes.LIMIT)))
@@ -30,13 +29,17 @@ class Game():
     def did_win(self):
         return self.answer.letters.issubset(self.guessed_letters)
 
+    def print_turn_header(self):
+        os.system('cls')
+        turn_number_as_string = str(self.turn_number) if len(
+            str(self.turn_number)) > 1 else " " + str(self.turn_number)
+        print("{0}||  TURN {1}  ||\n{0}".format(Game.HEADER, turn_number_as_string))
+
     def start(self):
         self.explain_rules()
         answer_guessed = False
         while not self.did_win() and not self.strikes.limit_reached():
-            os.system('cls')
-            turn_number_as_string = str(self.turn_number) if len(str(self.turn_number)) > 1 else " " + str(self.turn_number)
-            print(Game.HEADER + "||  TURN " + turn_number_as_string + "  ||\n" + Game.HEADER)
+            self.print_turn_header()
             turn = Turn(self.answer, self.guessed_letters, self.strikes)
             if self.answer.equals(turn.guess):
                 answer_guessed = True
@@ -50,15 +53,15 @@ class Game():
     def end_game(self, answer_guessed):
         os.system('cls')
         if self.did_win() or answer_guessed:
-            title = "||  YOU WON  ||"
+            title = " YOU WON "
             message = "Correct!"
         else:
-            title = "|| GAME OVER ||"
+            title = "GAME OVER"
             message = "Game over."
-        print(Game.HEADER + "{}\n".format(title) + Game.HEADER)
+        print("{0}|| {1} ||\n{0}".format(Game.HEADER, title))
         self.strikes.display_hangman()
-        print("{} The answer was {}{}".format(message, self.answer,
-                                           "" if self.answer.ends_with_punctuation() else "."))
+        print("{} The answer was \"{}{}\"".format(message, self.answer,
+                                              "" if self.answer.ends_with_punctuation() else "."))
 
     def play_again(self):
         self.again = input("\nWould you like to play again? ").lower()
