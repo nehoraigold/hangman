@@ -6,8 +6,6 @@ import os
 
 
 class Game():
-    HEADER = "=" * 15 + "\n"
-
     def __init__(self):
         self.display_introduction()
         self.settings = Settings()
@@ -18,9 +16,14 @@ class Game():
         self.again = None
         self.start()
 
+    def print_header(self, title):
+        border = "=" * (8 + len(title)) + "\n"
+        print("{0}||  {1}  ||\n{0}".format(border, title))
+
     def display_introduction(self):
         os.system('cls')
-        print('{0}||  HANGMAN  ||\n{0}\nWelcome to Hangman! The objective of this game is to decode the secret word or phrase by guessing one letter at a time.'.format(Game.HEADER))
+        self.print_header("HANGMAN")
+        print('Welcome to Hangman! The objective of this game is to decode the secret word or phrase by guessing one letter at a time.')
 
     def explain_rules(self):
         print("Here's how the game works: Each turn, you may guess a single letter to decode the secret word or phrase. If the letter you guess occurs in the phrase, we'll fill in all occurrences of that letter for you. If not, you'll get a strike. Strike out {} times, and it's game over. \n\nIf you think you've figured out what the secret phrase is before all the letters have been filled in, you may also enter in the complete answer as your guess. But if you're wrong, it'll count as a strike against you. Ready?\n".format(str(Strikes.LIMIT)))
@@ -29,17 +32,12 @@ class Game():
     def did_win(self):
         return self.answer.letters.issubset(self.guessed_letters)
 
-    def print_turn_header(self):
-        os.system('cls')
-        turn_number_as_string = str(self.turn_number) if len(
-            str(self.turn_number)) > 1 else " " + str(self.turn_number)
-        print("{0}||  TURN {1}  ||\n{0}".format(Game.HEADER, turn_number_as_string))
-
     def start(self):
         self.explain_rules()
         answer_guessed = False
         while not self.did_win() and not self.strikes.limit_reached():
-            self.print_turn_header()
+            os.system('cls')
+            self.print_header("Turn {}".format(str(self.turn_number)))
             turn = Turn(self.answer, self.guessed_letters, self.strikes)
             if self.answer.equals(turn.guess):
                 answer_guessed = True
@@ -58,10 +56,10 @@ class Game():
         else:
             title = "GAME OVER"
             message = "Game over."
-        print("{0}|| {1} ||\n{0}".format(Game.HEADER, title))
+        self.print_header(title)
         self.strikes.display_hangman()
         print("{} The answer was \"{}{}\"".format(message, self.answer,
-                                              "" if self.answer.ends_with_punctuation() else "."))
+                                                  "" if self.answer.ends_with_punctuation() else "."))
 
     def play_again(self):
         self.again = input("\nWould you like to play again? ").lower()

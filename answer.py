@@ -38,7 +38,7 @@ class Answer():
         return guess.lower() == self.lower() or guess.lower() == self.without_punctuation()
 
     def without_punctuation(self):
-        return str(''.join(ch for ch in self.lower() if ch.isalpha() or ch == " ")
+        return str(''.join(ch for ch in self.lower() if ch.isalpha() or ch == " "))
 
     def ends_with_punctuation(self):
         return not self.value[len(self) - 1].isalpha()
