@@ -1,4 +1,4 @@
-class Turn():
+class Turn:
     def __init__(self, answer, guessed_letters, strikes):
         self.answer = answer
         self.guessed_letters = guessed_letters
@@ -28,7 +28,7 @@ class Turn():
         for c in self.answer.value:
             if c.lower() in self.guessed_letters:
                 display += c + " "
-            elif c.isalpha() == False and c != " ":
+            elif not c.isalpha() and c != " ":
                 display += c + " "
             elif c == " ":
                 display += "   "

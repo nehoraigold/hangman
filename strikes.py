@@ -1,4 +1,4 @@
-class Strikes():
+class Strikes:
     LIMIT = 6
 
     def __init__(self):

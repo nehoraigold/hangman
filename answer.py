@@ -3,29 +3,26 @@ import random
 import csv
 from os import path
 
-class Answer():
+
+class Answer:
     def __init__(self, settings):
         self.value, self.hint = self.set_answer_and_hint(settings)
         self.letters = self.set_answer_letters()
 
     def set_answer_and_hint(self, settings):
         if settings.opponent_is_friend:
-            answer = getpass(
-                "\nGreat! Without peeking, have your friend enter in their secret phrase now.\n")
-            hint = getpass(
-                "\nNow, without peeking, have your friend enter in a hint for the secret phrase.\n")
-            print(
-                "The secret phrase and accompanying hint have been entered successfully.\n")
-            return (answer, hint)
+            answer = getpass("\nGreat! Without peeking, have your friend enter in their secret phrase now.\n")
+            hint = getpass("\nNow, without peeking, have your friend enter in a hint for the secret phrase.\n")
+            print("The secret phrase and accompanying hint have been entered successfully.\n")
         else:
-            current_path = '\\'.join(path.abspath(__file__).split('\\')[:-1])
-            with open(current_path + '\\answers.csv') as csv_file:
+            current_path = '/'.join(path.abspath(__file__).split('\\')[:-1])
+            with open(current_path + 'answers.csv') as csv_file:
                 read_csv = csv.reader(csv_file, delimiter=',')
                 row = random.choice(list(read_csv))
             answer = row[0]
             hint = row[1]
             print("\nThe secret phrase has been determined by the computer.\n")
-            return (answer, hint)
+        return answer, hint
 
     def set_answer_letters(self):
         answer_letters = []

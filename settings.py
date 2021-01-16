@@ -8,8 +8,7 @@ class Settings():
         COMPUTER_CHOICE = ["computer", "c", "comp"]
         FRIEND_CHOICE = ["friend", "f"]
         while not is_valid_choice:
-            comp_or_friend = input(
-                'Type either "computer" or "friend" to continue: ')
+            comp_or_friend = input('Type either "computer" or "friend" to continue: ')
             if comp_or_friend.lower() in COMPUTER_CHOICE:
                 return False
             elif comp_or_friend.lower() in FRIEND_CHOICE:

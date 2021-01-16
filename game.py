@@ -5,7 +5,7 @@ from turn import Turn
 import os
 
 
-class Game():
+class Game:
     def __init__(self):
         self.display_introduction()
         self.settings = Settings()
@@ -23,10 +23,16 @@ class Game():
     def display_introduction(self):
         os.system('cls')
         self.print_header("HANGMAN")
-        print('Welcome to Hangman! The objective of this game is to decode the secret word or phrase by guessing one letter at a time.')
+        print('Welcome to Hangman! The objective of this game is to decode the secret word or phrase by guessing one '
+              'letter at a time.')
 
     def explain_rules(self):
-        print("Here's how the game works: Each turn, you may guess a single letter to decode the secret word or phrase. If the letter you guess occurs in the phrase, we'll fill in all occurrences of that letter for you. If not, you'll get a strike. Strike out {} times, and it's game over. \n\nIf you think you've figured out what the secret phrase is before all the letters have been filled in, you may also enter in the complete answer as your guess. But if you're wrong, it'll count as a strike against you. Ready?\n".format(str(Strikes.LIMIT)))
+        print("Here's how the game works: Each turn, you may guess a single letter to decode the secret word or "
+              "phrase. If the letter you guess occurs in the phrase, we'll fill in all occurrences of that letter for "
+              "you. If not, you'll get a strike. Strike out {} times, and it's game over. \n\nIf you think you've "
+              "figured out what the secret phrase is before all the letters have been filled in, you may also enter "
+              "in the complete answer as your guess. But if you're wrong, it'll count as a strike against you. "
+              "Ready?\n".format(str(Strikes.LIMIT)))
         input("Hit enter to continue.")
 
     def did_win(self):
