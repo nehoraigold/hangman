@@ -1,4 +1,4 @@
-class Settings():
+class Settings:
     def __init__(self):
         self.opponent_is_friend = self.choose_opponent()
 
