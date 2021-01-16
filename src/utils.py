@@ -10,4 +10,3 @@ def clear_screen():
 def print_header(title):
     border = "=" * (8 + len(title)) + "\n"
     print("{0}||  {1}  ||\n{0}".format(border, title))
-

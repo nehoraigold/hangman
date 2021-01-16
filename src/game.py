@@ -1,4 +1,3 @@
-import os
 import utils
 from settings import Settings
 from answer import Answer
@@ -31,7 +30,6 @@ class Game:
         self.strikes = Strikes()
         self.guessed_letters = []
         self.turn_number = 1
-        self.again = None
 
     def did_win(self):
         return self.answer.letters.issubset(self.guessed_letters)
@@ -51,6 +49,7 @@ class Game:
                 self.strikes.add(turn.guess)
             self.turn_number += 1
         self.end_game(answer_guessed)
+        return self.play_again()
 
     def end_game(self, answer_guessed):
         utils.clear_screen()
@@ -66,9 +65,9 @@ class Game:
                                                   "" if self.answer.ends_with_punctuation() else "."))
 
     def play_again(self):
-        self.again = input("\nWould you like to play again? ").lower()
-        YES_ANSWERS = ['y', 'yes']
-        NO_ANSWERS = ['n', 'no']
-        while self.again not in YES_ANSWERS and self.again not in NO_ANSWERS:
+        again = input("\nWould you like to play again? ").lower()
+        yes_answers = ['y', 'yes']
+        no_answers = ['n', 'no']
+        while again not in yes_answers and again not in no_answers:
             self.play_again()
-        return self.again in YES_ANSWERS
+        return again in yes_answers
